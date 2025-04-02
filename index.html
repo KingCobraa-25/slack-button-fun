@@ -6,76 +6,101 @@
   <style>
     body {
       font-family: sans-serif;
-      background: #f7f7f7;
-      text-align: center;
-      padding: 2em;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f2f2f2;
+    }
+
+    .centerpiece {
+      position: relative;
+      width: 400px;
+      height: 400px;
     }
 
     h1 {
-      margin-bottom: 2em;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-size: 2rem;
     }
 
-    .button-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .btn {
+    .confetti-button {
+      position: absolute;
+      padding: 0.5em 1em;
       border: none;
-      color: white;
-      padding: 0.5em 1.5em;
+      border-radius: 8px;
       font-size: 1rem;
+      color: white;
       cursor: pointer;
-      border-radius: 5px;
-      transition: transform 0.2s ease-in-out;
+      transition: transform 0.2s;
     }
 
-    .btn:hover {
+    .confetti-button:hover {
       transform: scale(1.1);
     }
 
-    /* Random colors */
+    /* Random color classes */
     .red { background-color: #e74c3c; }
-    .green { background-color: #2ecc71; }
     .blue { background-color: #3498db; }
+    .green { background-color: #2ecc71; }
     .purple { background-color: #9b59b6; }
     .orange { background-color: #e67e22; }
-    .gray { background-color: #7f8c8d; }
     .yellow { background-color: #f1c40f; color: black; }
 
-    /* Random sizes */
-    .small { font-size: 0.7rem; padding: 0.4em 0.8em; }
-    .large { font-size: 1.3rem; padding: 1em 2em; }
-    .jumbo { font-size: 1.7rem; padding: 1.2em 2.5em; }
-
-    .crazy-shadow {
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    }
   </style>
 </head>
 <body>
-  <h1>There, you happy?</h1>
-  <div class="button-container">
-    <!-- We'll repeat this block with varied classes -->
-    <button class="btn red small">Button</button>
-    <button class="btn blue large crazy-shadow">Button</button>
-    <button class="btn green jumbo">Button</button>
-    <button class="btn purple small">Button</button>
-    <button class="btn orange large">Button</button>
-    <button class="btn gray jumbo crazy-shadow">Button</button>
-    <button class="btn yellow small">Button</button>
-    <button class="btn blue small">Button</button>
-    <button class="btn red large">Button</button>
-    <button class="btn purple jumbo">Button</button>
-    <button class="btn green small crazy-shadow">Button</button>
-    <button class="btn yellow large">Button</button>
-    <button class="btn orange jumbo crazy-shadow">Button</button>
-    <button class="btn gray large">Button</button>
-    <button class="btn red jumbo">Button</button>
-    <button class="btn blue small crazy-shadow">Button</button>
-    <!-- Add more if you want more chaos -->
+
+  <div class="centerpiece">
+    <h1>There, you happy?</h1>
+
+    <!-- Circle of buttons around the center -->
+    <button class="confetti-button red" style="top: 0%; left: 50%; transform: translate(-50%, -50%);">Button</button>
+    <button class="confetti-button blue" style="top: 25%; left: 90%; transform: translate(-50%, -50%);">Button</button>
+    <button class="confetti-button green" style="top: 75%; left: 90%; transform: translate(-50%, -50%);">Button</button>
+    <button class="confetti-button purple" style="top: 100%; left: 50%; transform: translate(-50%, -50%);">Button</button>
+    <button class="confetti-button orange" style="top: 75%; left: 10%; transform: translate(-50%, -50%);">Button</button>
+    <button class="confetti-button yellow" style="top: 25%; left: 10%; transform: translate(-50%, -50%);">Button</button>
   </div>
+
+  <!-- Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Sound FX -->
+  <audio id="squeak" src="https://www.soundjay.com/button/beep-07.mp3" preload="auto"></audio>
+  <audio id="pop" src="https://www.soundjay.com/button/button-3.mp3" preload="auto"></audio>
+  <audio id="quack" src="https://www.soundjay.com/animal/duck-quack-01.mp3" preload="auto"></audio>
+  <audio id="honk" src="https://www.soundjay.com/horn/horn-01.mp3" preload="auto"></audio>
+
+  <script>
+    const sounds = ['squeak', 'pop', 'quack', 'honk'];
+
+    document.querySelectorAll('.confetti-button').forEach(button => {
+      button.addEventListener('click', (e) => {
+        // Confetti from click location
+        confetti({
+          particleCount: 75,
+          spread: 80,
+          origin: {
+            x: e.clientX / window.innerWidth,
+            y: e.clientY / window.innerHeight
+          }
+        });
+
+        // Play random sound
+        const soundId = sounds[Math.floor(Math.random() * sounds.length)];
+        const audio = document.getElementById(soundId);
+        audio.currentTime = 0;
+        audio.play();
+      });
+    });
+  </script>
+
 </body>
 </html>
