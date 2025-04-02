@@ -17,8 +17,8 @@
 
     .centerpiece {
       position: relative;
-      width: 400px;
-      height: 400px;
+      width: 500px;
+      height: 500px;
     }
 
     h1 {
@@ -28,17 +28,18 @@
       transform: translate(-50%, -50%);
       text-align: center;
       font-size: 2rem;
+      z-index: 1;
     }
 
     .confetti-button {
       position: absolute;
-      padding: 0.5em 1em;
       border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      color: white;
       cursor: pointer;
       transition: transform 0.2s;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .confetti-button:hover {
@@ -55,6 +56,18 @@
       100% { transform: scale(1); }
     }
 
+    /* Shapes */
+    .circle { border-radius: 50%; }
+    .pill { border-radius: 50px; }
+    .oval { border-radius: 50% / 25%; }
+    .square { border-radius: 5px; }
+
+    /* Sizes */
+    .small { width: 60px; height: 30px; font-size: 0.7rem; }
+    .medium { width: 100px; height: 40px; font-size: 1rem; }
+    .large { width: 120px; height: 60px; font-size: 1.2rem; }
+
+    /* Colors */
     .red { background-color: #e74c3c; }
     .blue { background-color: #3498db; }
     .green { background-color: #2ecc71; }
@@ -68,12 +81,21 @@
   <div class="centerpiece">
     <h1>There, you happy?</h1>
 
-    <button class="confetti-button red" style="top: 0%; left: 50%; transform: translate(-50%, -50%);">Button</button>
-    <button class="confetti-button blue" style="top: 25%; left: 90%; transform: translate(-50%, -50%);">Button</button>
-    <button class="confetti-button green" style="top: 75%; left: 90%; transform: translate(-50%, -50%);">Button</button>
-    <button class="confetti-button purple" style="top: 100%; left: 50%; transform: translate(-50%, -50%);">Button</button>
-    <button class="confetti-button orange" style="top: 75%; left: 10%; transform: translate(-50%, -50%);">Button</button>
-    <button class="confetti-button yellow" style="top: 25%; left: 10%; transform: translate(-50%, -50%);">Button</button>
+    <!-- Original circle buttons -->
+    <button class="confetti-button red medium square" style="top: 0%; left: 50%; transform: translate(-50%, -50%);">Button</button>
+    <button class="confetti-button blue medium pill" style="top: 25%; left: 90%; transform: translate(-50%, -50%);">Button</button>
+    <button class="confetti-button green medium circle" style="top: 75%; left: 90%; transform: translate(-50%, -50%);">Button</button>
+    <button class="confetti-button purple medium square" style="top: 100%; left: 50%; transform: translate(-50%, -50%);">Button</button>
+    <button class="confetti-button orange medium pill" style="top: 75%; left: 10%; transform: translate(-50%, -50%);">Button</button>
+    <button class="confetti-button yellow medium oval" style="top: 25%; left: 10%; transform: translate(-50%, -50%);">Button</button>
+
+    <!-- NEW Buttons filling in the gaps -->
+    <button class="confetti-button red large pill" style="top: 12%; left: 70%; transform: translate(-50%, -50%);">Click</button>
+    <button class="confetti-button green small circle" style="top: 40%; left: 90%; transform: translate(-50%, -50%);">Hi</button>
+    <button class="confetti-button blue large oval" style="top: 88%; left: 70%; transform: translate(-50%, -50%);">Boom</button>
+    <button class="confetti-button yellow small square" style="top: 88%; left: 30%; transform: translate(-50%, -50%);">Yo</button>
+    <button class="confetti-button orange large circle" style="top: 40%; left: 10%; transform: translate(-50%, -50%);">Zap</button>
+    <button class="confetti-button purple small pill" style="top: 12%; left: 30%; transform: translate(-50%, -50%);">Hey</button>
   </div>
 
   <!-- Confetti Library -->
@@ -92,7 +114,7 @@
           }
         });
 
-        // Add pulse animation
+        // Pulse animation
         button.classList.add('pulse');
         setTimeout(() => button.classList.remove('pulse'), 600);
       });
